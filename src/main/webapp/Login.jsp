@@ -76,7 +76,7 @@
     <input type="PassWord" id="Password" name="PassWord" class="form-control" placeholder="密码" required>
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" name="checkbox"  value="remember-me"> 记住我
+            <input type="checkbox" name="checkbox" value="remember-me"> 记住我
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
@@ -85,7 +85,7 @@
 
 <%
     //此处请求cookie
-    
+
 %>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
