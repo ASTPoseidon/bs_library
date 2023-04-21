@@ -116,6 +116,7 @@
             <table class="table table-striped table-md">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>ID</th>
                     <th>书名</th>
                     <th>作者</th>
@@ -132,6 +133,7 @@
                         for (Book tmp : bookresult) {
                 %>
                 <tr>
+                    <td><input type="checkbox"></td>
                     <td><%=tmp.getID()%>
                     </td>
                     <td><%=tmp.getName()%>
@@ -163,6 +165,7 @@
                         for (Book tmp : books) {
                 %>
                 <tr>
+                    <td><input type="checkbox"></td>
                     <td><%=tmp.getID()%>
                     </td>
                     <td><%=tmp.getName()%>
@@ -187,19 +190,96 @@
 </div>
 
 <div style="text-align: right;margin-right: 100px">
-    <button style="margin-right: 20px" type="button" class="btn btn-primary">添加书籍</button>
-    <button style="margin-right: 20px" type="button" class="btn btn-warning">修改书籍</button>
+    <button style="margin-right: 20px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addbook">
+        添加书籍
+    </button>
+    <button style="margin-right: 20px" type="button" class="btn btn-warning" data-toggle="modal"
+            data-target="#updatebook">修改书籍
+    </button>
     <button style="margin-right: 20px" type="button" class="btn btn-danger">删除书籍</button>
+</div>
+<div class="modal fade" id="addbook" tabindex="-1" aria-labelledby="addbook" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加书籍</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Name1" class="col-form-label">书名:</label>
+                        <input type="text" class="form-control" id="Name1">
+                    </div>
+                    <div class="form-group">
+                        <label for="Author1" class="col-form-label">作者:</label>
+                        <input type="text" class="form-control" id="Author1">
+                    </div>
+                    <div class="form-group">
+                        <label for="Publisher1" class="col-form-label">出版社:</label>
+                        <textarea class="form-control" id="Publisher1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Price1" class="col-form-label">价格:</label>
+                        <input type="text" class="form-control" id="Price1">
+                    </div>
+                    <div class="form-group">
+                        <label for="ISBN1" class="col-form-label">ISBN:</label>
+                        <input type="text" class="form-control" id="ISBN1">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updatebook" tabindex="-1" aria-labelledby="updatebook" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加书籍</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Name2" class="col-form-label">书名:</label>
+                        <input type="text" class="form-control" id="Name2">
+                    </div>
+                    <div class="form-group">
+                        <label for="Author2" class="col-form-label">作者:</label>
+                        <input type="text" class="form-control" id="Author2">
+                    </div>
+                    <div class="form-group">
+                        <label for="Publisher2" class="col-form-label">出版社:</label>
+                        <textarea class="form-control" id="Publisher2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Price2" class="col-form-label">价格:</label>
+                        <input type="text" class="form-control" id="Price2">
+                    </div>
+                    <div class="form-group">
+                        <label for="ISBN2" class="col-form-label">ISBN:</label>
+                        <input type="text" class="form-control" id="ISBN2">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    $("input[id=text]").on("input", function (evt) {
-        if ($(this).val().trim().length) {
-            $("#search").removeAttr("disabled");
-        } else {
-            $("#search").prop("disabled", "disabled");
-        }
-    });
     $('#type').change(function () {
         if ($(this).children('option:selected').val() != "null") {
             $("#search").removeAttr("disabled");
@@ -207,6 +287,14 @@
             $("#search").prop("disabled", "disabled");
         }
     });
+    $("input[id=text]").on("input", function (evt) {
+        if ($(this).val().trim().length && $('#type').children('option:selected').val() != "null") {
+            $("#search").removeAttr("disabled");
+        } else {
+            $("#search").prop("disabled", "disabled");
+        }
+    });
+
 
     function Search() {
         const type = $('#type option:selected').val();
