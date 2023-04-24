@@ -8,6 +8,14 @@ public class Book {
     private double Price;
     private String ISBN;
 
+    public Book(String name, String author, String publisher, double price, String ISBN) {
+        Name = name;
+        Author = author;
+        Publisher = publisher;
+        Price = price;
+        this.ISBN = ISBN;
+    }
+
     public Book(int ID, String name, String author, String publisher, double price, String ISBN) {
         this.ID = ID;
         Name = name;

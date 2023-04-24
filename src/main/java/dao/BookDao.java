@@ -77,4 +77,35 @@ public class BookDao {
         }
         return tmp;
     }
+
+    public boolean Insert(Book book) throws SQLException {
+        PreparedStatement pstmt;
+        String sql = "insert into book values (NULL,?,?,?,?,?)";
+        pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, book.getName());
+        pstmt.setString(2, book.getAuthor());
+        pstmt.setString(3, book.getPublisher());
+        pstmt.setDouble(4, book.getPrice());
+        pstmt.setString(5, book.getISBN());
+        int rs = pstmt.executeUpdate();
+        if (rs == 1)
+            return true;
+        return false;
+    }
+
+    public boolean Update(Book book, int ID) throws SQLException {
+        PreparedStatement pstmt;
+        String sql = "UPDATE book set Name=? , Author=? , Publisher=? , Price=? , ISBN=? where ID=?";
+        pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, book.getName());
+        pstmt.setString(2, book.getAuthor());
+        pstmt.setString(3, book.getPublisher());
+        pstmt.setDouble(4, book.getPrice());
+        pstmt.setString(5, book.getISBN());
+        pstmt.setInt(6, ID);
+        int rs = pstmt.executeUpdate();
+        if (rs == 1)
+            return true;
+        return false;
+    }
 }

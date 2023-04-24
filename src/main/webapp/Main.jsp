@@ -128,12 +128,11 @@
                 <tbody>
                 <%
                     if (flag == 1) {
-                        //System.out.println("ok");
                         List<Book> bookresult = (List<Book>) request.getAttribute("books");
                         for (Book tmp : bookresult) {
                 %>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" name="checkbox“ value="<%=tmp.getID()%>"></td>
                     <td><%=tmp.getID()%>
                     </td>
                     <td><%=tmp.getName()%>
@@ -165,7 +164,7 @@
                         for (Book tmp : books) {
                 %>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" name="checkbox" value="<%=tmp.getID()%>"></td>
                     <td><%=tmp.getID()%>
                     </td>
                     <td><%=tmp.getName()%>
@@ -196,7 +195,7 @@
     <button style="margin-right: 20px" type="button" class="btn btn-warning" data-toggle="modal"
             data-target="#updatebook">修改书籍
     </button>
-    <button style="margin-right: 20px" type="button" class="btn btn-danger">删除书籍</button>
+    <button style="margin-right: 20px" type="button" class="btn btn-danger" onclick="DeleteBook()">删除书籍</button>
 </div>
 <div class="modal fade" id="addbook" tabindex="-1" aria-labelledby="addbook" aria-hidden="true">
     <div class="modal-dialog">
@@ -208,32 +207,32 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="InsertServlet" method="post">
                     <div class="form-group">
                         <label for="Name1" class="col-form-label">书名:</label>
-                        <input type="text" class="form-control" id="Name1">
+                        <input type="text" class="form-control" id="Name1" name="Name1">
                     </div>
                     <div class="form-group">
                         <label for="Author1" class="col-form-label">作者:</label>
-                        <input type="text" class="form-control" id="Author1">
+                        <input type="text" class="form-control" id="Author1" name="Author1">
                     </div>
                     <div class="form-group">
                         <label for="Publisher1" class="col-form-label">出版社:</label>
-                        <textarea class="form-control" id="Publisher1"></textarea>
+                        <textarea class="form-control" id="Publisher1" name="Publisher1"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="Price1" class="col-form-label">价格:</label>
-                        <input type="text" class="form-control" id="Price1">
+                        <input type="text" class="form-control" id="Price1" name="Price1">
                     </div>
                     <div class="form-group">
                         <label for="ISBN1" class="col-form-label">ISBN:</label>
-                        <input type="text" class="form-control" id="ISBN1">
+                        <input type="text" class="form-control" id="ISBN1" name="ISBN1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">确定</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>
@@ -242,39 +241,43 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">添加书籍</h5>
+                <h5 class="modal-title">修改书籍</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="UpdateServlet" method="post">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="ID2" name="ID2" value="">
+                    </div>
                     <div class="form-group">
                         <label for="Name2" class="col-form-label">书名:</label>
-                        <input type="text" class="form-control" id="Name2">
+                        <input type="text" class="form-control" id="Name2" name="Name2">
                     </div>
                     <div class="form-group">
                         <label for="Author2" class="col-form-label">作者:</label>
-                        <input type="text" class="form-control" id="Author2">
+                        <input type="text" class="form-control" id="Author2" name="Author2">
                     </div>
                     <div class="form-group">
                         <label for="Publisher2" class="col-form-label">出版社:</label>
-                        <textarea class="form-control" id="Publisher2"></textarea>
+                        <textarea class="form-control" id="Publisher2" name="Publisher2"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="Price2" class="col-form-label">价格:</label>
-                        <input type="text" class="form-control" id="Price2">
+                        <input type="text" class="form-control" id="Price2" name="Price2">
                     </div>
                     <div class="form-group">
                         <label for="ISBN2" class="col-form-label">ISBN:</label>
-                        <input type="text" class="form-control" id="ISBN2">
+                        <input type="text" class="form-control" id="ISBN2" name="ISBN2">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">确定</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">确定</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -295,7 +298,6 @@
         }
     });
 
-
     function Search() {
         const type = $('#type option:selected').val();
         const text = $('#text').val();
@@ -308,6 +310,18 @@
 
     function BackMain() {
         window.location.href = "Main.jsp?ifsearch=0"
+    }
+
+    function DeleteBook() {
+        const checkbox = document.getElementsByName("checkbox");
+        var list = "";
+        for (var i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked) {
+                list += checkbox[i].value + ",";
+            }
+        }
+        list = list.slice(0, -1);
+        window.location.href = "DeleteServlet?ID=" + list;
     }
 </script>
 
