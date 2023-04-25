@@ -434,10 +434,10 @@
         var Price = ID + "_Price";
         var ISBN = ID + "_ISBN";
         document.getElementById("Name3").innerText = "当前书名为：" + document.getElementById(Name).innerHTML;
-        document.getElementById("Author3").innerText = "当前书名为：" + document.getElementById(Author).innerHTML;
-        document.getElementById("Publisher3").innerText = "当前书名为：" + document.getElementById(Publisher).innerHTML;
-        document.getElementById("Price3").innerText = "当前书名为：" + document.getElementById(Price).innerHTML;
-        document.getElementById("ISBN3").innerText = "当前书名为：" + document.getElementById(ISBN).innerHTML;
+        document.getElementById("Author3").innerText = "当前作者为：" + document.getElementById(Author).innerHTML;
+        document.getElementById("Publisher3").innerText = "当前出版社为：" + document.getElementById(Publisher).innerHTML;
+        document.getElementById("Price3").innerText = "当前价格为：" + document.getElementById(Price).innerHTML;
+        document.getElementById("ISBN3").innerText = "当前ISBN为：" + document.getElementById(ISBN).innerHTML;
         document.getElementById("Name2").value = document.getElementById(Name).innerHTML;
         document.getElementById("Author2").value = document.getElementById(Author).innerHTML;
         document.getElementById("Publisher2").value = document.getElementById(Publisher).innerHTML;
