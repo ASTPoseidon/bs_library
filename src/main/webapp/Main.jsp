@@ -192,7 +192,7 @@
     </button>
     <button style="margin-right: 20px" type="button" class="btn btn-danger" onclick="DeleteBook()">删除书籍</button>
     <div style="text-align: right">
-        <small class="form-text text-muted">（当 0 个或 1 个以上书本被选中时，修改按钮激活）</small>
+        <small class="form-text text-muted">（仅有 1 个书籍被选中时，修改按钮激活）</small>
     </div>
 </div>
 
