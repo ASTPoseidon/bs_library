@@ -117,7 +117,6 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>ID</th>
                     <th>书名</th>
                     <th>作者</th>
                     <th>出版社</th>
@@ -132,18 +131,16 @@
                         for (Book tmp : bookresult) {
                 %>
                 <tr>
-                    <td><input type="checkbox" name="checkbox“ value="<%=tmp.getID()%>"></td>
-                    <td><%=tmp.getID()%>
+                    <td><input type="checkbox" name="checkbox" value="<%=tmp.getID()%>"></td>
+                    <td id="<%=tmp.getID()%>_Name"><%=tmp.getName()%>
                     </td>
-                    <td><%=tmp.getName()%>
+                    <td id="<%=tmp.getID()%>_Author"><%=tmp.getAuthor()%>
                     </td>
-                    <td><%=tmp.getAuthor()%>
+                    <td id="<%=tmp.getID()%>_Publisher"><%=tmp.getPublisher()%>
                     </td>
-                    <td><%=tmp.getPublisher()%>
+                    <td id="<%=tmp.getID()%>_Price"><%=tmp.getPrice()%>
                     </td>
-                    <td><%=tmp.getPrice()%>
-                    </td>
-                    <td><%=tmp.getISBN()%>
+                    <td id="<%=tmp.getID()%>_ISBN"><%=tmp.getISBN()%>
                     </td>
                 </tr>
                 <%
@@ -165,17 +162,15 @@
                 %>
                 <tr>
                     <td><input type="checkbox" name="checkbox" value="<%=tmp.getID()%>"></td>
-                    <td><%=tmp.getID()%>
+                    <td id="<%=tmp.getID()%>_Name"><%=tmp.getName()%>
                     </td>
-                    <td><%=tmp.getName()%>
+                    <td id="<%=tmp.getID()%>_Author"><%=tmp.getAuthor()%>
                     </td>
-                    <td><%=tmp.getAuthor()%>
+                    <td id="<%=tmp.getID()%>_Publisher"><%=tmp.getPublisher()%>
                     </td>
-                    <td><%=tmp.getPublisher()%>
+                    <td id="<%=tmp.getID()%>_Price"><%=tmp.getPrice()%>
                     </td>
-                    <td><%=tmp.getPrice()%>
-                    </td>
-                    <td><%=tmp.getISBN()%>
+                    <td id="<%=tmp.getID()%>_ISBN"><%=tmp.getISBN()%>
                     </td>
                 </tr>
                 <%
@@ -193,10 +188,14 @@
         添加书籍
     </button>
     <button style="margin-right: 20px" type="button" class="btn btn-warning" data-toggle="modal"
-            data-target="#updatebook">修改书籍
+            data-target="#updatebook" id="update" onclick="UpdateBook()" disabled>修改书籍
     </button>
     <button style="margin-right: 20px" type="button" class="btn btn-danger" onclick="DeleteBook()">删除书籍</button>
+    <div style="text-align: right">
+        <small class="form-text text-muted">（当 0 个或 1 个以上书本被选中时，修改按钮激活）</small>
+    </div>
 </div>
+
 <div class="modal fade" id="addbook" tabindex="-1" aria-labelledby="addbook" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -205,7 +204,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
             </div>
+            <small style="margin-left: 15px"
+                   class="form-text text-muted">当一个或多个文本框未被填写时，确定按钮不可用</small>
             <div class="modal-body">
                 <form action="InsertServlet" method="post">
                     <div class="form-group">
@@ -230,7 +232,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="submit" class="btn btn-primary" id="Submit1" disabled>确定</button>
                     </div>
                 </form>
             </div>
@@ -246,6 +248,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <small style="margin-left: 15px"
+                   class="form-text text-muted">当一个或多个文本框未被填写时，确定按钮不可用</small>
             <div class="modal-body">
                 <form action="UpdateServlet" method="post">
                     <div class="form-group">
@@ -254,26 +258,31 @@
                     <div class="form-group">
                         <label for="Name2" class="col-form-label">书名:</label>
                         <input type="text" class="form-control" id="Name2" name="Name2">
+                        <small class="form-text text-muted" id="Name3"></small>
                     </div>
                     <div class="form-group">
                         <label for="Author2" class="col-form-label">作者:</label>
                         <input type="text" class="form-control" id="Author2" name="Author2">
+                        <small class="form-text text-muted" id="Author3"></small>
                     </div>
                     <div class="form-group">
                         <label for="Publisher2" class="col-form-label">出版社:</label>
                         <textarea class="form-control" id="Publisher2" name="Publisher2"></textarea>
+                        <small class="form-text text-muted" id="Publisher3"></small>
                     </div>
                     <div class="form-group">
                         <label for="Price2" class="col-form-label">价格:</label>
                         <input type="text" class="form-control" id="Price2" name="Price2">
+                        <small class="form-text text-muted" id="Price3"></small>
                     </div>
                     <div class="form-group">
                         <label for="ISBN2" class="col-form-label">ISBN:</label>
                         <input type="text" class="form-control" id="ISBN2" name="ISBN2">
+                        <small class="form-text text-muted" id="ISBN3"></small>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="submit" class="btn btn-primary" id="Submit2" disabled>确定</button>
                     </div>
                 </form>
             </div>
@@ -283,20 +292,106 @@
 </div>
 
 <script>
-    $('#type').change(function () {
-        if ($(this).children('option:selected').val() != "null") {
-            $("#search").removeAttr("disabled");
+
+    var Select = document.getElementById("type");
+    var Input = document.getElementById("text");
+    var SearchButton = document.getElementById("search");
+    var UpdateButton = document.getElementById("update");
+    var CheckBoxes = document.getElementsByName("checkbox");
+    var Submit1 = document.getElementById("Submit1");
+    var Submit2 = document.getElementById("Submit2");
+    var Name1 = document.getElementById("Name1");
+    var Author1 = document.getElementById("Author1");
+    var Publisher1 = document.getElementById("Publisher1");
+    var Price1 = document.getElementById("Price1");
+    var ISBN1 = document.getElementById("ISBN1");
+    var Name2 = document.getElementById("Name2");
+    var Author2 = document.getElementById("Author2");
+    var Publisher2 = document.getElementById("Publisher2");
+    var Price2 = document.getElementById("Price2");
+    var ISBN2 = document.getElementById("ISBN2");
+
+    Select.addEventListener('change', function () {
+        checkValidity();
+    })
+
+    Input.addEventListener('input', function () {
+        checkValidity();
+    })
+    Name1.addEventListener('input', function () {
+        checkValidity1();
+    })
+    Author1.addEventListener('input', function () {
+        checkValidity1();
+    })
+    Publisher1.addEventListener('input', function () {
+        checkValidity1();
+    })
+    Price1.addEventListener('input', function () {
+        checkValidity1();
+    })
+    ISBN1.addEventListener('input', function () {
+        checkValidity1();
+    })
+    Name2.addEventListener('input', function () {
+        checkValidity2();
+    })
+    Author2.addEventListener('input', function () {
+        checkValidity2();
+    })
+    Publisher2.addEventListener('input', function () {
+        checkValidity2();
+    })
+    Price2.addEventListener('input', function () {
+        checkValidity2();
+    })
+    ISBN2.addEventListener('input', function () {
+        checkValidity2();
+    })
+    for (var i = 0; i < CheckBoxes.length; i++) {
+        CheckBoxes[i].addEventListener('change', function () {
+            checkValidity3();
+        })
+    }
+
+    function checkValidity() {
+        if (Select.value == "null" || Input.value.trim() == "") {
+            SearchButton.disabled = true;
         } else {
-            $("#search").prop("disabled", "disabled");
+            SearchButton.disabled = false;
         }
-    });
-    $("input[id=text]").on("input", function (evt) {
-        if ($(this).val().trim().length && $('#type').children('option:selected').val() != "null") {
-            $("#search").removeAttr("disabled");
+    }
+
+    function checkValidity1() {
+        if (Name1.value.trim() == "" || Author1.value.trim() == "" || Publisher1.value.trim() == "" || Price1.value.trim() == "" || ISBN1.value.trim() == "") {
+            Submit1.disabled = true;
         } else {
-            $("#search").prop("disabled", "disabled");
+            Submit1.disabled = false;
         }
-    });
+    }
+
+    function checkValidity2() {
+        if (Name2.value.trim() == "" || Author2.value.trim() == "" || Publisher2.value.trim() == "" || Price2.value.trim() == "" || ISBN2.value.trim() == "") {
+            Submit2.disabled = true;
+        } else {
+            Submit2.disabled = false;
+        }
+    }
+
+    function checkValidity3() {
+        var count = 0;
+        for (var i = 0; i < CheckBoxes.length; i++) {
+            if (CheckBoxes[i].checked) {
+                count++;
+            }
+        }
+        if (count == 1) {
+            UpdateButton.disabled = false;
+        } else {
+            UpdateButton.disabled = true;
+        }
+    }
+
 
     function Search() {
         const type = $('#type option:selected').val();
@@ -322,6 +417,32 @@
         }
         list = list.slice(0, -1);
         window.location.href = "DeleteServlet?ID=" + list;
+    }
+
+    function UpdateBook() {
+        const checkboxes = document.getElementsByName("checkbox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                var checkbox = document.getElementsByName("checkbox")[i];
+                break;
+            }
+        }
+        var ID = document.getElementById("ID2").value = checkbox.value;
+        var Name = ID + "_Name";
+        var Author = ID + "_Author";
+        var Publisher = ID + "_Publisher";
+        var Price = ID + "_Price";
+        var ISBN = ID + "_ISBN";
+        document.getElementById("Name3").innerText = "当前书名为：" + document.getElementById(Name).innerHTML;
+        document.getElementById("Author3").innerText = "当前书名为：" + document.getElementById(Author).innerHTML;
+        document.getElementById("Publisher3").innerText = "当前书名为：" + document.getElementById(Publisher).innerHTML;
+        document.getElementById("Price3").innerText = "当前书名为：" + document.getElementById(Price).innerHTML;
+        document.getElementById("ISBN3").innerText = "当前书名为：" + document.getElementById(ISBN).innerHTML;
+        document.getElementById("Name2").value = document.getElementById(Name).innerHTML;
+        document.getElementById("Author2").value = document.getElementById(Author).innerHTML;
+        document.getElementById("Publisher2").value = document.getElementById(Publisher).innerHTML;
+        document.getElementById("Price2").value = document.getElementById(Price).innerHTML;
+        document.getElementById("ISBN2").value = document.getElementById(ISBN).innerHTML;
     }
 </script>
 

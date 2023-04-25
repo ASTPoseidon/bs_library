@@ -88,9 +88,7 @@ public class BookDao {
         pstmt.setDouble(4, book.getPrice());
         pstmt.setString(5, book.getISBN());
         int rs = pstmt.executeUpdate();
-        if (rs == 1)
-            return true;
-        return false;
+        return rs == 1;
     }
 
     public boolean Update(Book book, int ID) throws SQLException {
@@ -104,8 +102,15 @@ public class BookDao {
         pstmt.setString(5, book.getISBN());
         pstmt.setInt(6, ID);
         int rs = pstmt.executeUpdate();
-        if (rs == 1)
-            return true;
-        return false;
+        return rs == 1;
+    }
+
+    public boolean Delete(Book book) throws SQLException {
+        PreparedStatement pstmt;
+        String sql = "delete from book where ID=?";
+        pstmt = con.prepareStatement(sql);
+        pstmt.setInt(1, book.getID());
+        int rs = pstmt.executeUpdate();
+        return rs == 1;
     }
 }
