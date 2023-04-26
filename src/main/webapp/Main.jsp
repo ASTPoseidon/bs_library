@@ -209,7 +209,7 @@
             <small style="margin-left: 15px"
                    class="form-text text-muted">当一个或多个文本框未被填写时，确定按钮不可用</small>
             <div class="modal-body">
-                <form action="InsertServlet" method="post">
+                <form action="InsertServlet" method="post" name="form1">
                     <div class="form-group">
                         <label for="Name1" class="col-form-label">书名:</label>
                         <input type="text" class="form-control" id="Name1" name="Name1">
@@ -232,7 +232,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary" id="Submit1" disabled>确定</button>
+                        <button type="button" class="btn btn-primary" id="Submit1" onclick="submit1()" disabled>确定
+                        </button>
                     </div>
                 </form>
             </div>
@@ -251,7 +252,7 @@
             <small style="margin-left: 15px"
                    class="form-text text-muted">当一个或多个文本框未被填写时，确定按钮不可用</small>
             <div class="modal-body">
-                <form action="UpdateServlet" method="post">
+                <form action="UpdateServlet" method="post" name="form2">
                     <div class="form-group">
                         <input type="hidden" class="form-control" id="ID2" name="ID2" value="">
                     </div>
@@ -282,7 +283,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary" id="Submit2" disabled>确定</button>
+                        <button type="button" class="btn btn-primary" id="Submit2" onclick="submit2()" disabled>确定
+                        </button>
                     </div>
                 </form>
             </div>
@@ -433,16 +435,34 @@
         var Publisher = ID + "_Publisher";
         var Price = ID + "_Price";
         var ISBN = ID + "_ISBN";
-        document.getElementById("Name3").innerText = "当前书名为：" + document.getElementById(Name).innerHTML;
-        document.getElementById("Author3").innerText = "当前作者为：" + document.getElementById(Author).innerHTML;
-        document.getElementById("Publisher3").innerText = "当前出版社为：" + document.getElementById(Publisher).innerHTML;
-        document.getElementById("Price3").innerText = "当前价格为：" + document.getElementById(Price).innerHTML;
-        document.getElementById("ISBN3").innerText = "当前ISBN为：" + document.getElementById(ISBN).innerHTML;
-        document.getElementById("Name2").value = document.getElementById(Name).innerHTML;
-        document.getElementById("Author2").value = document.getElementById(Author).innerHTML;
-        document.getElementById("Publisher2").value = document.getElementById(Publisher).innerHTML;
-        document.getElementById("Price2").value = document.getElementById(Price).innerHTML;
-        document.getElementById("ISBN2").value = document.getElementById(ISBN).innerHTML;
+        document.getElementById("Name3").innerText = "当前书名为：" + document.getElementById(Name).innerText;
+        document.getElementById("Author3").innerText = "当前作者为：" + document.getElementById(Author).innerText;
+        document.getElementById("Publisher3").innerText = "当前出版社为：" + document.getElementById(Publisher).innerText;
+        document.getElementById("Price3").innerText = "当前价格为：" + document.getElementById(Price).innerText;
+        document.getElementById("ISBN3").innerText = "当前ISBN为：" + document.getElementById(ISBN).innerText;
+        document.getElementById("Name2").value = document.getElementById(Name).innerText;
+        document.getElementById("Author2").value = document.getElementById(Author).innerText;
+        document.getElementById("Publisher2").value = document.getElementById(Publisher).innerText;
+        document.getElementById("Price2").value = document.getElementById(Price).innerText;
+        document.getElementById("ISBN2").value = document.getElementById(ISBN).innerText;
+    }
+
+    function submit1() {
+        var reg = /^[0-9]+$/;
+        if (!reg.test(Price1.value)) {
+            alert("输入不合法！");
+        } else {
+            document.getElementsByName("form1")[0].submit();
+        }
+    }
+
+    function submit2() {
+        var reg = /^[0-9]+$/;
+        if (!reg.test(Price2.value)) {
+            alert("输入不合法！");
+        } else {
+            document.getElementsByName("form2")[0].submit();
+        }
     }
 </script>
 
