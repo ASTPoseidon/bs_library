@@ -448,7 +448,7 @@
     }
 
     function submit1() {
-        var reg = /^[0-9]+$/;
+        var reg = /^(-?\d+)(.\d+|\d+)?$/;
         if (!reg.test(Price1.value)) {
             alert("输入不合法！");
         } else {
@@ -457,7 +457,7 @@
     }
 
     function submit2() {
-        var reg = /^[0-9]+$/;
+        var reg = /^(-?\d+)(.\d+|\d+)?$/;
         if (!reg.test(Price2.value)) {
             alert("输入不合法！");
         } else {
